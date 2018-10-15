@@ -1,0 +1,38 @@
+input {
+	width:3em;
+}
+table {
+	border: 1px dashed black
+}
+td {
+	border: 1px solid black
+}
+#svsu {
+	color:red;
+}
+#gvsu {
+	color:blue;
+}
+#legend{
+	font-family: arial;
+}
+.school {
+	font-family: arial;
+}
+fieldset {
+	border-color: yellow;
+	border: 1px groove yellow;
+	width: 1px;
+}
+legend {
+	padding: 2px;
+	border: 1px groove yellow;
+	font-family: arial;
+}
+p {
+	margin-top: 7px;
+	margin-bottom: 1px;
+	font-family: arial;
+	font-size: 10pt;
+	font-style: italic;
+}
