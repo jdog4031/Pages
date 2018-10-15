@@ -1,1 +1,55 @@
 
+
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<title>Prog03 - CIS255</title>
+		<link rel="stylesheet" type="text/css" href="prog3.css">
+	</head>
+
+	<body>
+		<form id="prog3" oninput="teamOne.value=parseInt(a.value)+parseInt(b.value)+parseInt(c.value)+
+												 parseInt(d.value)+parseInt(e.value);
+								   teamTwo.value=parseInt(v.value)+parseInt(w.value)+parseInt(x.value)+
+												 parseInt(y.value)+parseInt(z.value);">
+
+			<fieldset>
+				<legend>Cross Country Scores:</legend>
+									 
+			<table>
+				<tr>
+					<td id="legend">Team</td>
+					<td id="legend">1</td>
+					<td id="legend">2</td>
+					<td id="legend">3</td>
+					<td id="legend">4</td>
+					<td id="legend">5</td>
+					<td id="legend">Total</td>
+				</tr>
+				<tr>
+					<td id="svsu" class="school">SVSU</td>
+					<td><input type="number" id="a" value="0"></td>
+					<td><input type="number" id="b" value="0"></td>
+					<td><input type="number" id="c" value="0"></td>
+					<td><input type="number" id="d" value="0"></td>
+					<td><input type="number" id="e" value="0"></td>
+					<td><output id="svsu" form="prog03" name="teamOne" for="a e"></output></td>
+				</tr>
+				<tr>
+					<td id="gvsu" class="school">GVSU</td>
+					<td><input type="number" id="v" value="0"></td>
+					<td><input type="number" id="w" value="0"></td>
+					<td><input type="number" id="x" value="0"></td>
+					<td><input type="number" id="y" value="0"></td>
+					<td><input type="number" id="z" value="0"></td>
+					<td><output id="gvsu" form="prog03" name="teamTwo" for="v z"></output></td>
+				</tr>
+			</table>
+			
+			<p> Enter the places of the first 5 athletes from each team. </p>
+			
+			</fieldset>
+		</form>
+	</body>
+</html>
