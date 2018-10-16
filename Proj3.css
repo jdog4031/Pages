@@ -1,38 +1,40 @@
-input {
-	width:3em;
+<style type="text/css" media="screen">
+
+table{
+  
+border-collapse:collapse;
+border:1px solid #000000;
+  
 }
-table {
-	border: 1px dashed black
+
+table td{background-color:#d2b48c;
+border:2px solid black;
 }
-td {
-	border: 1px solid black
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
-#svsu {
-	color:red;
+
+#player1{
+ color: red ;
 }
-#gvsu {
-	color:blue;
+#player2{
+ color: blue ;
 }
-#legend{
-	font-family: arial;
+#par{
+  color:green;
 }
-.school {
-	font-family: arial;
+#title{
+  color:purple;
 }
-fieldset {
-	border-color: yellow;
-	border: 1px groove yellow;
-	width: 1px;
+
+
+input{
+background-color: #d2b48c;
+
+  width: 25px;
+ height:15px 
 }
-legend {
-	padding: 2px;
-	border: 1px groove yellow;
-	font-family: arial;
-}
-p {
-	margin-top: 7px;
-	margin-bottom: 1px;
-	font-family: arial;
-	font-size: 10pt;
-	font-style: italic;
-}
+</style>
