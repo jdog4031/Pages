@@ -1,0 +1,349 @@
+
+
+<!doctype html>
+<html>
+	<head>
+		<style>
+			label {
+				width: 60px;
+				text-align: right;
+				padding-right: 5px;
+				display: inline-block;
+			}
+			input[type="number"] {
+				width:50px;
+				margin-right: 25px;
+			}
+      tr:nth-child(even) {
+			background-color: #f2f2f2
+		}
+
+		</style>
+	</head>
+	<body onload="Inputs.addForm();">
+    <h1>Prog05 - Jacob Bowman</h1>
+		
+		<p>Use button to add more lines to the form</p>
+		<button type="button" onclick="Inputs.addLine();">Add Line</button>
+		<br />
+		
+		<div id="div1">
+		</div>
+		
+		<p> display data</p>
+		<button type="button" onclick="Person.createArray();">Generate array</button>
+		<br />
+		
+		<div id="div2">
+		</div>
+		
+		<p> create data table </p>
+		<button type="button" onclick="Table.createTable()">Generate Table</button>
+		<br />
+		
+		<div id="div3">
+		</div>
+		
+		<script>
+		
+// GLOBAL VARIABLES
+
+var currentLine = 0;
+var inputWidth  = 10;
+var peopleArray    = [];
+
+	
+class Inputs{
+	
+	static addForm() {
+
+		// create a new form element, and append to div1
+		var newelement = document.createElement("form");
+		newelement.setAttribute("id","form1");
+		var div1 = document.getElementById("div1");
+		div1.appendChild(newelement);
+
+		// create a new fieldset element, and append to form1
+		var newelement = document.createElement("fieldset");
+		newelement.setAttribute("id","fieldset1");
+		var form1 = document.getElementById("form1");
+		form1.appendChild(newelement);
+
+		// create a new legend element, and append to fieldset1
+		var newelement = document.createElement("legend");
+		var textnode = document.createTextNode("People ");
+		newelement.appendChild(textnode);
+		var fieldset1 = document.getElementById("fieldset1");
+		fieldset1.appendChild(newelement);
+
+		// create a new label element, and append to fieldset1
+		var newelement = document.createElement("label");
+		newelement.setAttribute("for","fname"+currentLine);
+		var textnode = document.createTextNode("Given Name");
+		newelement.appendChild(textnode);
+		var fieldset1 = document.getElementById("fieldset1");
+		fieldset1.appendChild(newelement);
+
+		// create a new input element, and append to fieldset1
+		var newelement = document.createElement("input");
+		newelement.setAttribute("name","gname"+currentLine);
+		newelement.setAttribute("id","gname"+currentLine);
+		newelement.setAttribute("type","text");
+		newelement.setAttribute("placeholder","John");
+		newelement.setAttribute("size",10);
+		if (currentLine==0) newelement.setAttribute("autofocus","autofocus");
+		var fieldset1 = document.getElementById("fieldset1");
+		fieldset1.appendChild(newelement);
+
+		// add more fields 
+		Inputs.addField("fieldset1", "sname", "Surname", "text", " Doe", inputWidth);
+		Inputs.addField("fieldset1", "day", "Solar Birth Day", "number", "Day", inputWidth);
+		Inputs.addField("fieldset1", "month", "Solar Birth Month", "number", "Month", inputWidth);
+		Inputs.addField("fieldset1", "year", "Solar Birth Year", "number", "Year", inputWidth);
+		Inputs.addField("fieldset1", "country", "Country", "select", inputWidth);
+
+		// add line break 
+		var newelement = document.createElement("br");
+		var fieldset1 = document.getElementById("fieldset1");
+		fieldset1.appendChild(newelement);
+
+		// increment line counter
+		currentLine++;
+	}	
+
+	static addLine () {
+		// precondition: inputWidth global variable must be set
+		// precondition: call from addForm() so HTML element with id="fieldset1" exists
+		
+		Inputs.addField("fieldset1", "gname", "Given Name", "text", "John", inputWidth);
+		Inputs.addField("fieldset1", "sname", "Surname", "text", "Doe", inputWidth);
+		Inputs.addField("fieldset1", "day", "Solar Birth Day", "number", "Day", inputWidth);
+		Inputs.addField("fieldset1", "month", "Solar Birth Month", "number", "Month", inputWidth);
+		Inputs.addField("fieldset1", "year", "Solar Birth Year", "number", "Year", inputWidth);
+		Inputs.addField("fieldset1", "country", "Country", "text", inputWidth);
+		var newelement = document.createElement("br");
+		var fieldset1 = document.getElementById("fieldset1");
+		fieldset1.appendChild(newelement);
+		currentLine++;
+	}
+
+	/* addField()
+	 * inserts one label one input element into a row of a form 
+	 */
+	static addField(formId, namePrefix, labelText, dataType, placeholder, fieldSize) {
+		// precondition: currentLine (global variable) must be set
+		// precondition: objArray[] (global variable) must be declared
+		// precondition: call from addLine() so HTML element with id=formID exists
+
+		// create a new label element, and append to form (or fieldset)
+		var n = document.createElement("label");
+		n.setAttribute("for",namePrefix+currentLine);
+		var t = document.createTextNode(labelText + " " );
+		n.appendChild(t);
+		var f = document.getElementById(formId);
+		f.appendChild(n);
+
+
+		if(namePrefix=="country") {
+			var newSelect = document.createElement("select");
+			newSelect.setAttribute("name",namePrefix+currentLine);
+			newSelect.setAttribute("id",namePrefix+currentLine);
+			newSelect.setAttribute("type",dataType);
+			newSelect.setAttribute("placeholder",placeholder);
+			newSelect.setAttribute("size",fieldSize);
+			
+			newSelect.appendChild(new Option("USA"));
+			newSelect.appendChild(new Option("China"));
+			var form = document.getElementById(formId);
+			form.appendChild(newSelect);
+		}
+
+
+		else {
+		// create a new input element, and append to form
+		var n = document.createElement("input");
+		n.setAttribute("name",namePrefix+currentLine);
+		n.setAttribute("id",namePrefix+currentLine);
+		n.setAttribute("type",dataType);
+		n.setAttribute("placeholder",placeholder);
+		n.setAttribute("size",fieldSize);
+		var f = document.getElementById(formId);
+		f.appendChild(n);
+		}
+	}
+}
+
+class Person{
+
+	constructor(i){			
+		this.gname = document.getElementById("gname"+i).value,
+		this.sname = document.getElementById("sname"+i).value,
+		this.day = document.getElementById("day"+i).value,
+		this.month = document.getElementById("month"+i).value,
+		this.year = document.getElementById("year"+i).value,
+		this.country =document.getElementById("country"+i).value,
+		this.countryAge = function () {
+      var age = new Date().getFullYear() - this.year;
+      if (this.country == 'China')
+        return age +1;
+      else 
+        return age;
+
+		}
+	}
+		
+		
+	static createArray() {	
+	
+	for(var i = 0; i <  currentLine; i++) {
+		peopleArray[i] = new Person(i)
+	}
+		
+		var divContent = "<ol start='0'>";
+		peopleArray.forEach(function(e) {
+			divContent += '<li>';
+			divContent += JSON.stringify(e);
+			divContent += ' ... countryAge() == ' + e.countryAge();
+			divContent += '</li>';
+		});
+		divContent += "</ol>";
+		
+		document.getElementById("div2").innerHTML = divContent;
+
+	}
+
+
+
+	static USAZodiac(month,day) {
+	  var zodiac;
+		if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
+			zodiac = "Capricorn";
+	  } else if ((month == 1 && day >= 21) || (month == 2 && day <= 18)) {
+			zodiac = "Aquarius";
+	  } else if((month == 2 && day >= 19) || (month == 3 && day <= 20)) {
+			zodiac = "Pisces";
+	  } else if((month == 3 && day >= 21) || (month == 4 && day <= 20)) {
+			zodiac = "Aries";
+	  } else if((month == 4 && day >= 21) || (month == 5 && day <= 20)) {
+			zodiac = "Taurus";
+	  } else if((month == 5 && day >= 21) || (month == 6 && day <= 20)) {
+			zodiac = "Gemini";
+	  } else if((month == 6 && day >= 22) || (month == 7 && day <= 22)) {
+			zodiac = "Cancer";
+	  } else if((month == 7 && day >= 23) || (month == 8 && day <= 23)) {
+			zodiac = "Leo";
+	  } else if((month == 8 && day >= 24) || (month == 9 && day <= 23)) {
+			zodiac = "Virgo";
+	  } else if((month == 9 && day >= 24) || (month == 10 && day <= 23)) {
+			zodiac = "Libra";
+	  } else if((month == 10 && day >= 24) || (month == 11 && day <= 22)) {
+			zodiac = "Scorpio";
+	  } else if((month == 11 && day >= 23) || (month == 12 && day <= 21)) {
+			zodiac = "Sagittarius";
+	  }
+	
+	return zodiac;
+
+
+
+		}
+	
+		
+
+	static ChinaZodiac(year) {	
+		switch(year%12) {
+			case 0:
+				return("Monkey");
+				break;
+			case 1:
+				return("Rooster");
+				break;
+			case 2:
+				return("Dog");
+				break;
+			case 3:
+				return("Pig");
+				break;
+			case 4:
+				return("Rat");
+				break;
+			case 5:
+				return("Ox");
+				break;
+			case 6:
+				return("Tiger");
+				break;
+			case 7:
+				return("Rabbit");
+				break;
+			case 8:
+				return("Dragon");
+				break;
+			case 9:
+				return("Snake");
+				break;
+			case 10:
+				return("Horse");
+				break;
+			case 11:
+				return("Goat");
+				break;
+		}
+	}
+}//end Person Class		
+
+class Table{
+	static createTable(){
+		var elementExists = document.getElementById("objTable");
+		if (elementExists != null) {
+			document.getElementById("div3").removeChild(elementExists);
+		}
+		var table = document.createElement("table");
+		table.setAttribute("id", "objTable");
+		table.setAttribute("class", "table table-striped");
+
+		var tableHeader = table.createTHead();
+		var headerRow = tableHeader.insertRow(-1);
+		var localName = headerRow.insertCell(-1);
+		localName.outerHTML = "<th>Local Name</th>";
+		var localDOB = headerRow.insertCell(-1);
+		localDOB.outerHTML = "<th>Local DOB</th>";
+		var localAge = headerRow.insertCell(-1);
+		localAge.outerHTML = "<th>Local Age</th>";
+		var localZodiac = headerRow.insertCell(-1);
+		localZodiac.outerHTML = "<th>Local Zodiac</th>";
+		var tableBody = table.createTBody();
+
+
+
+		peopleArray.forEach(function (e) {
+			var row = tableBody.insertRow(-1);
+			localName = row.insertCell(-1);
+			localDOB = row.insertCell(-1);
+			localAge = row.insertCell(-1);
+			localZodiac = row.insertCell(-1);
+			if (e.country == "China") {
+				localName.appendChild(document.createTextNode(e.sname + " " + e.gname));
+				localDOB.appendChild(document.createTextNode(e.year + "-" + e.month + "-" + e.day));
+				localAge.appendChild(document.createTextNode(e.countryAge()));
+				var zodSign = Person.ChinaZodiac(e.year);
+				localZodiac.appendChild(document.createTextNode(zodSign));
+			}
+			else {
+				localName.appendChild(document.createTextNode(e.gname + " " + e.sname));
+				localDOB.appendChild(document.createTextNode(e.month + "-" + e.day + "-" + e.year));
+				localAge.appendChild(document.createTextNode(e.countryAge()));
+				var zodSign = Person.USAZodiac(e.month,e.day);
+				localZodiac.appendChild(document.createTextNode(zodSign));
+			}
+
+		});
+
+
+		document.getElementById("div3").appendChild(table);
+
+	}	
+}		
+		</script>
+	</body>
+</html>
